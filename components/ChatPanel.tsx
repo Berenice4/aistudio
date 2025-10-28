@@ -1,17 +1,18 @@
+
 import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { ChatMessage } from '../types';
-import SendIcon from './icons/SendIcon';
-import SearchIcon from './icons/SearchIcon';
-import XIcon from './icons/XIcon';
-import SaveIcon from './icons/SaveIcon';
-import FolderOpenIcon from './icons/FolderOpenIcon';
-import DocumentMinusIcon from './icons/DocumentMinusIcon';
-import ChevronUpIcon from './icons/ChevronUpIcon';
-import ChevronDownIcon from './icons/ChevronDownIcon';
-import ClockIcon from './icons/ClockIcon';
-import ConfirmModal from './ConfirmModal';
-import PlayIcon from './icons/PlayIcon';
-import PaperClipIcon from './icons/PaperClipIcon';
+import { ChatMessage } from '../types.ts';
+import SendIcon from './icons/SendIcon.tsx';
+import SearchIcon from './icons/SearchIcon.tsx';
+import XIcon from './icons/XIcon.tsx';
+import SaveIcon from './icons/SaveIcon.tsx';
+import FolderOpenIcon from './icons/FolderOpenIcon.tsx';
+import DocumentMinusIcon from './icons/DocumentMinusIcon.tsx';
+import ChevronUpIcon from './icons/ChevronUpIcon.tsx';
+import ChevronDownIcon from './icons/ChevronDownIcon.tsx';
+import ClockIcon from './icons/ClockIcon.tsx';
+import ConfirmModal from './ConfirmModal.tsx';
+import PlayIcon from './icons/PlayIcon.tsx';
+import PaperClipIcon from './icons/PaperClipIcon.tsx';
 
 const SEARCH_HISTORY_KEY = 'agent_context_search_history';
 

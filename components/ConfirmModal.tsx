@@ -1,6 +1,6 @@
 
 import React from 'react';
-import ExclamationTriangleIcon from './icons/ExclamationTriangleIcon';
+import ExclamationTriangleIcon from './icons/ExclamationTriangleIcon.tsx';
 
 interface ConfirmModalProps {
   title: string;
