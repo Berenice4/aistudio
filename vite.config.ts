@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // FIX: Replaced `process.cwd()` with `''` to fix a TypeScript type error where `cwd` was not found on `process`.
-  // `loadEnv` will default to the project root for loading .env files.
-  const env = loadEnv(mode, '', '');
+  // Carica il file .env in base alla `mode` nella directory di lavoro corrente.
+  // FIX: Cast `process` to `any` to resolve TypeScript error about missing `cwd` property.
+  const env = loadEnv(mode, (process as any).cwd(), '');
   return {
     plugins: [react()],
     define: {

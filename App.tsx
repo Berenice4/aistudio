@@ -1,6 +1,7 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { FunctionDeclaration, GenerateContentRequest, GenerateContentResponse, Part } from '@google/genai';
+// FIX: Use `GenerateContentParameters` instead of deprecated `GenerateContentRequest`.
+import { FunctionDeclaration, GenerateContentParameters, GenerateContentResponse, Part } from '@google/genai';
 import { ChatMessage, UploadedFile } from './types';
 import ContextPanel from './components/ContextPanel';
 import ChatPanel from './components/ChatPanel';
@@ -113,7 +114,8 @@ Please provide a concise analysis in markdown format, covering:
 
     const contents = newHistory.map(({ role, parts }) => ({ role, parts }));
 
-    const request: GenerateContentRequest = { contents };
+    // FIX: Use `GenerateContentParameters` instead of deprecated `GenerateContentRequest`.
+    const request: GenerateContentParameters = { contents };
 
     if (systemInstruction) {
       request.config = { ...request.config, systemInstruction };

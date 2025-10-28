@@ -1,5 +1,5 @@
-
-import { GoogleGenAI, GenerateContentRequest } from "@google/genai";
+// FIX: Use `GenerateContentParameters` instead of deprecated `GenerateContentRequest`.
+import { GoogleGenAI, GenerateContentParameters } from "@google/genai";
 
 // Ensure API_KEY is available in the environment
 if (!process.env.API_KEY) {
@@ -8,7 +8,8 @@ if (!process.env.API_KEY) {
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-export const generateResponse = async (params: GenerateContentRequest) => {
+// FIX: Use `GenerateContentParameters` instead of deprecated `GenerateContentRequest`.
+export const generateResponse = async (params: GenerateContentParameters) => {
   try {
     const response = await ai.models.generateContent({
       ...params,
