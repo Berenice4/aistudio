@@ -1,18 +1,18 @@
 
 import React, { useState, useRef } from 'react';
 import { FunctionDeclaration } from '@google/genai';
-import ToolEditor from './ToolEditor.tsx';
-import PlusIcon from './icons/PlusIcon.tsx';
-import TrashIcon from './icons/TrashIcon.tsx';
-import SparklesIcon from './icons/SparklesIcon.tsx';
-import { SYSTEM_INSTRUCTION_TEMPLATES } from '../constants/templates.ts';
-import { TOOL_TEMPLATES } from '../constants/toolTemplates.ts';
-import HelpIcon from './icons/HelpIcon.tsx';
-import HelpModal from './HelpModal.tsx';
-import CheckIcon from './icons/CheckIcon.tsx';
-import { UploadedFile } from '../types.ts';
-import PaperClipIcon from './icons/PaperClipIcon.tsx';
-import XCircleIcon from './icons/XCircleIcon.tsx';
+import ToolEditor from './ToolEditor';
+import PlusIcon from './icons/PlusIcon';
+import TrashIcon from './icons/TrashIcon';
+import SparklesIcon from './icons/SparklesIcon';
+import { SYSTEM_INSTRUCTION_TEMPLATES } from '../constants/templates';
+import { TOOL_TEMPLATES } from '../constants/toolTemplates';
+import HelpIcon from './icons/HelpIcon';
+import HelpModal from './HelpModal';
+import CheckIcon from './icons/CheckIcon';
+import { UploadedFile } from '../types';
+import PaperClipIcon from './icons/PaperClipIcon';
+import XCircleIcon from './icons/XCircleIcon';
 
 interface ContextPanelProps {
   systemInstruction: string;

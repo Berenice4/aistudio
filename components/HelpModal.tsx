@@ -1,6 +1,6 @@
 
 import React from 'react';
-import XIcon from './icons/XIcon.tsx';
+import XIcon from './icons/XIcon';
 
 interface HelpModalProps {
   onClose: () => void;

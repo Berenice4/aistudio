@@ -1,7 +1,7 @@
 
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { TUTORIAL_STEPS } from '../constants/tutorialSteps.ts';
-import XIcon from './icons/XIcon.tsx';
+import { TUTORIAL_STEPS } from '../constants/tutorialSteps';
+import XIcon from './icons/XIcon';
 
 interface TutorialOverlayProps {
   onClose: () => void;

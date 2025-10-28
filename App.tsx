@@ -1,13 +1,13 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { FunctionDeclaration, GenerateContentRequest, GenerateContentResponse, Part } from '@google/genai';
-import { ChatMessage, UploadedFile } from './types.ts';
-import ContextPanel from './components/ContextPanel.tsx';
-import ChatPanel from './components/ChatPanel.tsx';
-import DebugPanel from './components/DebugPanel.tsx';
-import { generateResponse } from './services/geminiService.ts';
-import TutorialOverlay from './components/TutorialOverlay.tsx';
-import CoinIcon from './components/icons/CoinIcon.tsx';
+import { ChatMessage, UploadedFile } from './types';
+import ContextPanel from './components/ContextPanel';
+import ChatPanel from './components/ChatPanel';
+import DebugPanel from './components/DebugPanel';
+import { generateResponse } from './services/geminiService';
+import TutorialOverlay from './components/TutorialOverlay';
+import CoinIcon from './components/icons/CoinIcon';
 
 const CHAT_HISTORY_KEY = 'agent_context_chat_history';
 

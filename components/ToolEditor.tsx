@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { FunctionDeclaration, Type } from '@google/genai';
-import PlusIcon from './icons/PlusIcon.tsx';
-import TrashIcon from './icons/TrashIcon.tsx';
-import Bars3Icon from './icons/Bars3Icon.tsx';
+import PlusIcon from './icons/PlusIcon';
+import TrashIcon from './icons/TrashIcon';
+import Bars3Icon from './icons/Bars3Icon';
 
 interface ToolEditorProps {
   tool: FunctionDeclaration | null;

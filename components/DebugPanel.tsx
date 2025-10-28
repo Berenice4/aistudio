@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { GenerateContentResponse } from '@google/genai';
-import SparklesIcon from './icons/SparklesIcon.tsx';
+import SparklesIcon from './icons/SparklesIcon';
 
 interface DebugPanelProps {
   latestResponse: GenerateContentResponse | null;
