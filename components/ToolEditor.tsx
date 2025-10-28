@@ -233,7 +233,8 @@ const ToolEditor: React.FC<ToolEditorProps> = ({ tool, onSave, onClose }) => {
                       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <input type="text" value={key} placeholder="Nome Parametro" onChange={e => handleParamChange(index, 'name', e.target.value)} className="bg-gray-900 border-gray-600 rounded-md p-2 focus:ring-primary focus:border-primary" />
                         <select value={(value as any).type} onChange={e => handleParamChange(index, 'type', e.target.value)} className="bg-gray-900 border-gray-600 rounded-md p-2 focus:ring-primary focus:border-primary">
-                          {Object.values(Type).filter(t => t !== Type.TYPE_UNSPECIFIED && t !== Type.OBJECT && t !== Type.ARRAY && t !== Type.NULL).map(t => <option key={t} value={t}>{t}</option>)}
+                          {/* FIX: Explicitly type 't' as string to resolve TypeScript inference error. */}
+                          {Object.values(Type).filter(t => t !== Type.TYPE_UNSPECIFIED && t !== Type.OBJECT && t !== Type.ARRAY && t !== Type.NULL).map((t: string) => <option key={t} value={t}>{t}</option>)}
                         </select>
                       </div>
                       <button onClick={() => removeParam(index)} className="text-gray-400 hover:text-red-500 p-1"><TrashIcon className="w-5 h-5" /></button>
