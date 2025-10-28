@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Agent Context Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'gray-950': '#0C0C0F',
+              'gray-900': '#111115',
+              'gray-800': '#1C1C22',
+              'gray-700': '#2C2C35',
+              'gray-400': '#9B9B9B',
+              'primary': '#4F46E5',
+              'primary-hover': '#4338CA',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<style>
+  .search-highlight {
+    background-color: #fde047; /* yellow-300 */
+    color: #18181b; /* zinc-900 */
+    border-radius: 3px;
+    padding: 1px 2px;
+  }
+  .search-highlight-active {
+    background-color: #fb923c; /* orange-400 */
+    color: #18181b; /* zinc-900 */
+  }
+</style>
+</head>
+  <body class="bg-gray-950 text-gray-200 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
