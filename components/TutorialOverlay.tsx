@@ -5,13 +5,20 @@ import XIcon from './icons/XIcon';
 
 interface TutorialOverlayProps {
   onClose: () => void;
+  onStepChange: (index: number) => void;
 }
 
-const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => {
+const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose, onStepChange }) => {
   const [stepIndex, setStepIndex] = useState(0);
   const [highlightStyle, setHighlightStyle] = useState({});
   const [tooltipStyle, setTooltipStyle] = useState({});
   const currentStep = TUTORIAL_STEPS[stepIndex];
+
+  useEffect(() => {
+    if (onStepChange) {
+      onStepChange(stepIndex);
+    }
+  }, [stepIndex, onStepChange]);
 
   useLayoutEffect(() => {
     const updatePosition = () => {
@@ -41,11 +48,13 @@ const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => {
             setTooltipStyle({
               top: `${rect.bottom + 16}px`,
               left: `${rect.left}px`,
+              maxWidth: `${window.innerWidth - rect.left - 16}px`
             });
           } else {
             setTooltipStyle({
               bottom: `${window.innerHeight - rect.top + 16}px`,
               left: `${rect.left}px`,
+              maxWidth: `${window.innerWidth - rect.left - 16}px`
             });
           }
         }

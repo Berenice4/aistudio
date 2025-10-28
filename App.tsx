@@ -9,6 +9,10 @@ import DebugPanel from './components/DebugPanel';
 import { generateResponse } from './services/geminiService';
 import TutorialOverlay from './components/TutorialOverlay';
 import CoinIcon from './components/icons/CoinIcon';
+import { TUTORIAL_STEPS } from './constants/tutorialSteps';
+import SparklesIcon from './components/icons/SparklesIcon';
+import ChatBubbleLeftRightIcon from './components/icons/ChatBubbleLeftRightIcon';
+import BugAntIcon from './components/icons/BugAntIcon';
 
 const CHAT_HISTORY_KEY = 'agent_context_chat_history';
 
@@ -26,6 +30,7 @@ const App: React.FC = () => {
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [showTokenCount, setShowTokenCount] = useState<boolean>(false);
   const [sessionTokenCount, setSessionTokenCount] = useState<number>(0);
+  const [mobileView, setMobileView] = useState<'context' | 'chat' | 'debug'>('chat');
 
   useEffect(() => {
     loadChatHistory();
@@ -157,43 +162,71 @@ Please provide a concise analysis in markdown format, covering:
     }
   }, [systemInstruction, tools, useGoogleSearch, chatHistory, uploadedFiles, analyzeResponse]);
 
+  const handleTutorialStepChange = (stepIndex: number) => {
+    if (window.innerWidth < 768) { // md breakpoint
+      const step = TUTORIAL_STEPS[stepIndex];
+      const selector = step.selector;
+
+      if (['#context-panel', '#system-instruction', '#grounding-section', '#tools-section'].includes(selector)) {
+        setMobileView('context');
+      } else if (['#chat-panel-messages', '#chat-input-form'].includes(selector)) {
+        setMobileView('chat');
+      } else if (['#debug-panel'].includes(selector)) {
+        setMobileView('debug');
+      }
+    }
+  };
+
+  const contextPanelProps = {
+    systemInstruction, setSystemInstruction, tools, setTools, useGoogleSearch, setUseGoogleSearch, uploadedFiles, setUploadedFiles
+  };
+  const chatPanelProps = {
+    messages: chatHistory, currentMessage, setCurrentMessage, sendMessage, isLoading, saveChat: saveChatHistory, loadChat: loadChatHistory, clearChat: clearChatHistory, onStartTutorial: () => setIsTutorialOpen(true)
+  };
+  const debugPanelProps = {
+    latestResponse, analysis, isAnalyzing
+  };
+
   return (
     <div className="flex flex-col h-screen font-sans">
       <main className="flex flex-1 overflow-hidden">
+        {/* Desktop View */}
         <div className="w-full max-w-sm md:w-1/4 lg:w-1/5 xl:w-1/4 hidden md:block">
-          <ContextPanel
-            systemInstruction={systemInstruction}
-            setSystemInstruction={setSystemInstruction}
-            tools={tools}
-            setTools={setTools}
-            useGoogleSearch={useGoogleSearch}
-            setUseGoogleSearch={setUseGoogleSearch}
-            uploadedFiles={uploadedFiles}
-            setUploadedFiles={setUploadedFiles}
-          />
+          <ContextPanel {...contextPanelProps} />
         </div>
-        <div className="flex-1">
-          <ChatPanel
-            messages={chatHistory}
-            currentMessage={currentMessage}
-            setCurrentMessage={setCurrentMessage}
-            sendMessage={sendMessage}
-            isLoading={isLoading}
-            saveChat={saveChatHistory}
-            loadChat={loadChatHistory}
-            clearChat={clearChatHistory}
-            onStartTutorial={() => setIsTutorialOpen(true)}
-          />
+        <div className="flex-1 hidden md:block">
+          <ChatPanel {...chatPanelProps} />
         </div>
         <div className="w-full max-w-sm md:w-1/4 lg:w-1/5 xl:w-1/4 hidden lg:block">
-          <DebugPanel 
-            latestResponse={latestResponse} 
-            analysis={analysis}
-            isAnalyzing={isAnalyzing}
-          />
+          <DebugPanel {...debugPanelProps} />
+        </div>
+
+        {/* Mobile View */}
+        <div className="w-full h-full md:hidden">
+          {mobileView === 'context' && <ContextPanel {...contextPanelProps} />}
+          {mobileView === 'chat' && <ChatPanel {...chatPanelProps} />}
+          {mobileView === 'debug' && <DebugPanel {...debugPanelProps} />}
         </div>
       </main>
-      <footer className="flex items-center justify-between py-2 px-4 text-xs text-gray-500 border-t border-gray-800">
+
+      {/* Mobile navigation footer */}
+      <footer className="md:hidden flex items-center justify-around py-1 px-4 text-xs text-gray-400 border-t border-gray-800 bg-gray-950">
+        <button onClick={() => setMobileView('context')} className={`flex flex-col items-center gap-1 p-2 rounded-md transition-colors w-20 ${mobileView === 'context' ? 'text-primary' : 'hover:text-white'}`}>
+          <SparklesIcon className="w-6 h-6" />
+          <span>Contesto</span>
+        </button>
+        <button onClick={() => setMobileView('chat')} className={`flex flex-col items-center gap-1 p-2 rounded-md transition-colors w-20 ${mobileView === 'chat' ? 'text-primary' : 'hover:text-white'}`}>
+          <ChatBubbleLeftRightIcon className="w-6 h-6" />
+          <span>Chat</span>
+        </button>
+        <button onClick={() => setMobileView('debug')} className={`flex flex-col items-center gap-1 p-2 rounded-md transition-colors w-20 ${mobileView === 'debug' ? 'text-primary' : 'hover:text-white'}`}>
+          <BugAntIcon className="w-6 h-6" />
+          <span>Ispettore</span>
+        </button>
+      </footer>
+      
+      {/* Desktop footer */}
+      <footer className="hidden md:flex items-center justify-between py-2 px-4 text-xs text-gray-500 border-t border-gray-800">
         <span>©2025 Mirko Compagno</span>
         <div className="flex items-center gap-4">
           {showTokenCount && latestResponse?.usageMetadata && (
@@ -208,7 +241,7 @@ Please provide a concise analysis in markdown format, covering:
           </button>
         </div>
       </footer>
-      {isTutorialOpen && <TutorialOverlay onClose={() => setIsTutorialOpen(false)} />}
+      {isTutorialOpen && <TutorialOverlay onClose={() => setIsTutorialOpen(false)} onStepChange={handleTutorialStepChange} />}
     </div>
   );
 };
